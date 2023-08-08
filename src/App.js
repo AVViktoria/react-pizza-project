@@ -1,39 +1,39 @@
-import "./scss/app.scss";
+import { Route, Routes } from "react-router-dom";
+
+// components
 import Header from "./components/Header.jsx";
-import Sort from "./components/Sort.jsx";
-import Categories from "./components/Categories.jsx";
-import PizzaBlock from "./components/PizzaBlock";
-import pizzas from "./assets/pizzas.json";
+import Home from "./pages/Home.jsx";
+import Cart from "./pages/Cart.jsx";
+import NotFound from "./pages/NotFound.jsx";
+
+//styles
+import "./scss/app.scss";
 
 function App() {
+  // const pathname = window.location.pathname;
   return (
     <div className="wrapper">
       <Header />
+      {/* {isLoading && "Loading..."} */}
       <div className="content">
-        <div className="container">
-          <div className="content__top">
-            <Categories />
-            <Sort />
-          </div>
-          <h2 className="content__title">Все пиццы</h2>
-          <div className="content__items">
-            {pizzas.map((obj) => (
-              <PizzaBlock
-                key={obj.id}
-                {...obj}
-                // key={title}
-                // title={title}
-                // price={price}
-                // imageUrl={imageUrl}
-                // sizes={sizes}
-                // types={types}
-              />
-            ))}
-          </div>
-        </div>
+        {/* {pathname === "/" && <Home />} */}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="*" element={<NotFound />} /> {/* route по умолчанию */}
+        </Routes>
+        {/* <NotFound /> */}
       </div>
     </div>
   );
 }
 
 export default App;
+
+// {...obj}
+// key={title}
+// title={title}
+// price={price}
+// imageUrl={imageUrl}
+// sizes={sizes}
+// types={types}
