@@ -30,6 +30,9 @@ body {
     font-size: 38px;
     margin-top: 60px;
     margin-bottom: 50px;
+    @media (max-width: 730px) {
+      justify-content: center;
+    }
   }
 
   &__items {
@@ -156,6 +159,9 @@ body {
   }
   .content__items {
     display: block;
+    @media (max-width: 645px) {
+      justify-items: center;
+    }
   }
   &__item {
     display: flex;
