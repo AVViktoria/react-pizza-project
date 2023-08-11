@@ -2,7 +2,7 @@
 
 export default function Categories({value, onChangeCategory, onChangeSort}) {
   // const [activeIndex, setActiveIndex] = useState(0);
-console.log(value);
+// console.log(value);
   const categoriesName = [
     "Все",
     "Вегетарианская",
