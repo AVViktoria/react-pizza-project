@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import Categories from "../components/Categories";
 import Loader from "../components/PizzaBlock/Loader";
@@ -6,7 +6,11 @@ import PizzaBlock from "../components/PizzaBlock/PizzaBlock";
 import Sort from "../components/Sort";
 import Pagination from "../components/Pagination";
 
-const Home = ({ searchValue }) => {
+import { SearchContext } from "../App";
+
+const Home = () => {
+  const { searchValue} = useContext(SearchContext); // use hook useContext
+
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [categoryId, setCategoryId] = useState(0);

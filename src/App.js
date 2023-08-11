@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import React from "react";
 
 // components
 import Header from "./components/Header.jsx";
@@ -10,23 +11,23 @@ import NotFound from "./pages/NotFound.jsx";
 import "./scss/app.scss";
 import { useState } from "react";
 
+export const SearchContext = React.createContext();
+
 function App() {
-  // const pathname = window.location.pathname;
   const [searchValue, setSearchValue] = useState("");
   console.log(searchValue, "INPUT");
   return (
     <div className="wrapper">
-      <Header searchValue={searchValue} setSearchValue={setSearchValue} />
-      {/* {isLoading && "Loading..."} */}
-      <div className="content">
-        {/* {pathname === "/" && <Home />} */}
-        <Routes>
-          <Route path="/" element={<Home searchValue={searchValue} />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="*" element={<NotFound />} /> {/* route по умолчанию */}
-        </Routes>
-        {/* <NotFound /> */}
-      </div>
+      <SearchContext.Provider value={{ searchValue, setSearchValue }}>
+        <Header />
+        <div className="content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="*" element={<NotFound />} /> {/* route по умолчанию */}
+          </Routes>
+        </div>
+      </SearchContext.Provider>
     </div>
   );
 }
