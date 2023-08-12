@@ -15,7 +15,6 @@ export const SearchContext = React.createContext();
 
 function App() {
   const [searchValue, setSearchValue] = useState("");
-  console.log(searchValue, "INPUT");
   return (
     <div className="wrapper">
       <SearchContext.Provider value={{ searchValue, setSearchValue }}>
@@ -33,11 +32,3 @@ function App() {
 }
 
 export default App;
-
-// {...obj}
-// key={title}
-// title={title}
-// price={price}
-// imageUrl={imageUrl}
-// sizes={sizes}
-// types={types}

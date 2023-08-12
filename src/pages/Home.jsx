@@ -1,4 +1,8 @@
 import { useContext, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setCategoryId } from "../redux/slices/filterSlice";
+
+
 
 import Categories from "../components/Categories";
 import Loader from "../components/PizzaBlock/Loader";
@@ -9,22 +13,29 @@ import Pagination from "../components/Pagination";
 import { SearchContext } from "../App";
 
 const Home = () => {
-  const { searchValue} = useContext(SearchContext); // use hook useContext
+  const dispatch = useDispatch();
 
+  // const categoryId = useSelector(state => state.filter.categoryId);
+  // const sortType = useSelector(state => state.filter.sort.sortProperty);
+      
+  //можно записать через диструктуризацию
+  const {categoryId, sort} = useSelector(state => state.filter);
+  const sortType = sort.sortProperty;
+
+  const { searchValue} = useContext(SearchContext); // use hook useContext
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [categoryId, setCategoryId] = useState(0);
   const [currentPage, setCurrentPage] = useState(1)
-  const [sortType, setSortType] = useState({
-    name: "популярности",
-    sortProperty: "rating",
-  });
-
+  
+  const onClickCategory = (id) => {
+    dispatch(setCategoryId(id))
+}
   useEffect(() => {
     setIsLoading(true);
-    const sortBy = sortType.sortProperty.replace("-", "");
-    const order = sortType.sortProperty.includes("-") ? "asc" : "desc";
+    const sortBy = sortType.replace("-", "");
+    const order = sortType.includes("-") ? "asc" : "desc";
     const category = categoryId > 0 ? `category=${categoryId}` : "";
+   
     // backend search
     const search = searchValue ? `&search=${searchValue}` : "";
 
@@ -55,11 +66,10 @@ const Home = () => {
       <div className="content__top">
         <Categories
           value={categoryId}
-          onChangeCategory={(indexItem) => setCategoryId(indexItem)}
+          onChangeCategory={onClickCategory}
         />
         <Sort
-          value={sortType}
-          onChangeSort={(indexItem) => setSortType(indexItem)}
+          
         />
       </div>
       <h2 className="content__title">Все пиццы</h2>
