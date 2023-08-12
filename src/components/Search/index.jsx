@@ -1,9 +1,34 @@
-import { useContext } from "react";
-import styles from "./Search.module.scss";
+import { useCallback, useContext, useRef, useState } from "react";
+import debounce from "lodash.debounce";
 import { SearchContext } from "../../App";
 
+import styles from "./Search.module.scss";
+
 const Search = () => {
-  const { searchValue, setSearchValue } = useContext(SearchContext); // use hook useContext
+  const [inputValue, setInputValue] = useState("");
+  const { setSearchValue } = useContext(SearchContext); // use hook useContext
+  const inputRef = useRef();
+
+  const onClickClear = () => {
+    setSearchValue("");
+    setInputValue('');
+    inputRef.current.focus();
+  };
+
+  // сохраняем ссылку на функцию с помощью useCallback и делаем ее отложенной
+  //вызываем ее каждый раз, когда меняется инпут в onChangeInput
+  const updateSearchValue = useCallback(
+    debounce((str) => {
+      setSearchValue(str);
+    }, 1000),
+    [],
+  );
+
+  const onChangeInput = (event) => {
+    setInputValue(event.target.value);
+    updateSearchValue(event.target.value);
+  };
+
   return (
     <div className={styles.root}>
       <svg
@@ -23,14 +48,22 @@ const Search = () => {
       </svg>
       {/* Controlled input because 'value=searchValue' and render 'searchValue &&' */}
       <input
-        value={searchValue}
-        onChange={(event) => setSearchValue(event.target.value)}
+        ref={inputRef}
+        value={inputValue}
+        onChange={onChangeInput}
         className={styles.input}
         placeholder="Find pizza..."
       />
-      {searchValue && <svg onClick={ ()=>setSearchValue('')} className={styles.clearIcon} viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-        <path d="M437.5,386.6L306.9,256l130.6-130.6c14.1-14.1,14.1-36.8,0-50.9c-14.1-14.1-36.8-14.1-50.9,0L256,205.1L125.4,74.5  c-14.1-14.1-36.8-14.1-50.9,0c-14.1,14.1-14.1,36.8,0,50.9L205.1,256L74.5,386.6c-14.1,14.1-14.1,36.8,0,50.9  c14.1,14.1,36.8,14.1,50.9,0L256,306.9l130.6,130.6c14.1,14.1,36.8,14.1,50.9,0C451.5,423.4,451.5,400.6,437.5,386.6z" />
-      </svg>}
+      {inputValue && (
+        <svg
+          onClick={onClickClear}
+          className={styles.clearIcon}
+          viewBox="0 0 512 512"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M437.5,386.6L306.9,256l130.6-130.6c14.1-14.1,14.1-36.8,0-50.9c-14.1-14.1-36.8-14.1-50.9,0L256,205.1L125.4,74.5  c-14.1-14.1-36.8-14.1-50.9,0c-14.1,14.1-14.1,36.8,0,50.9L205.1,256L74.5,386.6c-14.1,14.1-14.1,36.8,0,50.9  c14.1,14.1,36.8,14.1,50.9,0L256,306.9l130.6,130.6c14.1,14.1,36.8,14.1,50.9,0C451.5,423.4,451.5,400.6,437.5,386.6z" />
+        </svg>
+      )}
     </div>
   );
 };
