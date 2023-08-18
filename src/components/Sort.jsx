@@ -1,10 +1,8 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setSort } from "../redux/slices/filterSlice";
 
-export default function Sort({ value, onChangeSort }) {
-  const [open, setOpen] = useState(false);
-  // const [selectedListSort, setSelectedListSort] = useState(0);
-
-  const list = [
+export const list = [
     { name: "популярности (down)", sortProperty: "rating" },
     { name: "популярности (up)", sortProperty: "-rating" },
 
@@ -15,15 +13,38 @@ export default function Sort({ value, onChangeSort }) {
     { name: "алфавиту (up)", sortProperty: "-title" },
 
   ];
-  // const sortName = list[value].name;
 
-  const onClickListItem = (i) => {
-    onChangeSort(i);
-    setOpen(false);
+
+export default function Sort() {
+  const dispatch = useDispatch();
+  const sort = useSelector(state => state.filter.sort);
+  const sortRef = useRef();
+
+
+  const [open, setOpen] = useState(false);
+
+  const onClickListItem = (obj) => {
+    dispatch(setSort(obj));
+    setOpen(false); // hide sort window
   };
+const handleClickOutside =(event) => {
+////////????????? doesn't work INCLUDES????
+      // if (!event.path.includes(sortRef.current)) {
+      if (!sortRef.current) {
+        
+         setOpen(false);
+      }
+    }
+  //componentDidMount
+  useEffect(() => {
+document.body.addEventListener('click', handleClickOutside)
+    //componentWillUnmount effect - размонтирование
+    return () => document.body.removeEventListener('click', handleClickOutside)
+  }, [])
+  
 
   return (
-    <div className="sort">
+    <div ref={ sortRef} className="sort">
       <div className="sort__label">
         <svg
           width="10"
@@ -38,7 +59,7 @@ export default function Sort({ value, onChangeSort }) {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setOpen(!open)}>{value.name}</span>
+        <span onClick={() => setOpen(!open)}>{sort.name}</span>
       </div>
       {open && (
         <div className="sort__popup">
@@ -47,7 +68,7 @@ export default function Sort({ value, onChangeSort }) {
               <li
                 key={i}
                 onClick={() => onClickListItem(obj)}
-                className={value.sortProperty === obj.sortProperty ? "active" : ""}
+                className={sort.sortProperty === obj.sortProperty ? "active" : ""}
               >
                 {obj.name}
               </li>

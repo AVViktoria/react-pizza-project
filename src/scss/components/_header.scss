@@ -8,9 +8,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    @media (max-width: 645px) {
+    @media (max-width: 1220px) {
       flex-direction: column;
-
+      .header__logo {
+        margin-bottom: 20px;
+      }
       .header__cart {
         margin-top: 20px;
       }
