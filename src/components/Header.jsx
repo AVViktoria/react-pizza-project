@@ -6,7 +6,9 @@ import LogoSvg from '../assets/img/pizza-logo.svg'
 
 
 export default function Header() {
-  const {items, totalPrice}=useSelector(state => state.cart)
+  const { items, totalPrice } = useSelector(state => state.cart);
+  const totalCount = items.reduce((sum, item) => sum + item.count, 0)
+  
   return (
     <div className="header">
       <div className="container">
@@ -52,7 +54,7 @@ export default function Header() {
                 strokeLinejoin="round"
               />
             </svg>
-            <span>{items.length}</span>
+            <span>{totalCount}</span>
           </a>
         </div>
       </div>

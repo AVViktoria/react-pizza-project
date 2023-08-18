@@ -42,7 +42,7 @@ const Home = () => {
   const onChangePage = (number) => {
     dispatch(setCurrentPage(number));
   };
-  
+
   const fetchPizzas = () => {
     setIsLoading(true);
     const sortBy = sortType.replace("-", "");
@@ -74,12 +74,10 @@ const Home = () => {
       navigate(`?${queryString}`);
     }
     isMounted.current = true;
-  },[sort.sortProperty,
-        categoryId,
-        currentPage]);
+  }, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
   // при первом рендере парсим параметры, проверяем, есть ли в URL такие параметры
-   // если был первый рендер, то проверяем URL-параметры и сохраняем в Redux
+  // если был первый рендер, то проверяем URL-параметры и сохраняем в Redux
   useEffect(() => {
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1));
@@ -88,7 +86,7 @@ const Home = () => {
       dispatch(setFilters({ ...params, sort }));
       isSearch.current = true;
     }
-  },[]);
+  }, []);
 
   // если был первый рендер, то запрашиваем пиццы
   useEffect(() => {
@@ -97,9 +95,7 @@ const Home = () => {
       fetchPizzas();
     }
     isSearch.current = false;
-  },[sort.sortProperty,
-        categoryId,
-        currentPage, searchValue]);
+  }, [categoryId, sort.sortProperty, currentPage, searchValue]);
 
   const pizzas = items
     .filter((obj) => {

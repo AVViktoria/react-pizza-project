@@ -27,20 +27,17 @@ export default function Sort() {
     dispatch(setSort(obj));
     setOpen(false); // hide sort window
   };
-
-  //componentDidMount
-  useEffect(() => {
 const handleClickOutside =(event) => {
-console.log('sort mount')
 ////////????????? doesn't work INCLUDES????
       // if (!event.path.includes(sortRef.current)) {
       if (!sortRef.current) {
-        console.log("was click")
+        
          setOpen(false);
       }
     }
-
-    document.body.addEventListener('click', handleClickOutside)
+  //componentDidMount
+  useEffect(() => {
+document.body.addEventListener('click', handleClickOutside)
     //componentWillUnmount effect - размонтирование
     return () => document.body.removeEventListener('click', handleClickOutside)
   }, [])
