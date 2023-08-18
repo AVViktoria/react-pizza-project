@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setCategoryId,
@@ -74,7 +74,9 @@ const Home = () => {
       navigate(`?${queryString}`);
     }
     isMounted.current = true;
-  });
+  },[sort.sortProperty,
+        categoryId,
+        currentPage]);
 
   // при первом рендере парсим параметры, проверяем, есть ли в URL такие параметры
    // если был первый рендер, то проверяем URL-параметры и сохраняем в Redux
@@ -86,7 +88,7 @@ const Home = () => {
       dispatch(setFilters({ ...params, sort }));
       isSearch.current = true;
     }
-  });
+  },[]);
 
   // если был первый рендер, то запрашиваем пиццы
   useEffect(() => {
@@ -95,7 +97,9 @@ const Home = () => {
       fetchPizzas();
     }
     isSearch.current = false;
-  });
+  },[sort.sortProperty,
+        categoryId,
+        currentPage, searchValue]);
 
   const pizzas = items
     .filter((obj) => {
