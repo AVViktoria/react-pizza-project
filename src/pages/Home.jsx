@@ -43,7 +43,7 @@ const Home = () => {
     dispatch(setCurrentPage(number));
   };
 
-  const fetchPizzas = () => {
+  const fetchPizzas = async () => {
     setIsLoading(true);
     const sortBy = sortType.replace("-", "");
     const order = sortType.includes("-") ? "asc" : "desc";
@@ -52,14 +52,34 @@ const Home = () => {
     // backend search
     const search = searchValue ? `&search=${searchValue}` : "";
 
-    axios
-      .get(
-        `https://64b78c1321b9aa6eb0784a2e.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`
-      )
-      .then((res) => {
-        setItems(res.data);
-        setIsLoading(false);
-      });
+      // axios
+      //   .get(
+      //     `https://64b78c1321b9aa6eb0784a2e.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`
+      //   )
+      //   .then((res) => {
+      //     setItems(res.data);
+      //     console.log(777)
+      //     setIsLoading(false);
+      //   }).catch(err => {
+      //     setIsLoading(false);
+      //     console.log(err, "Axios error")
+      //   });
+
+    //* переписали функцию на синхронную async/await with try/catch
+    try {
+      const res = await axios.get(
+      `https://64b78c1321b9aa6eb0784a2e.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`
+    );
+    setItems(res.data);
+    console.log(777);
+    } catch (err) {
+      console.log("Axios error", err)
+      alert('Error to get pizzas')
+    } finally {
+    setIsLoading(false);
+    }
+
+    window.scrollTo(0, 0);
   };
 
   // с помощью этого хука создаем строку с параметрами для передачи в ссылку(URL)
