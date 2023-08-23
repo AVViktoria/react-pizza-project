@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -7,7 +7,6 @@ import {
   setFilters,
 } from "../redux/slices/filterSlice";
 import { SearchContext } from "../App";
-import axios from "axios";
 import qs from "qs";
 
 // components
@@ -17,6 +16,7 @@ import PizzaBlock from "../components/PizzaBlock/PizzaBlock";
 import Sort from "../components/Sort";
 import Pagination from "../components/Pagination";
 import { list } from "../components/Sort";
+import { fetchPizzas } from "../redux/slices/pizzaSlice";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -26,15 +26,15 @@ const Home = () => {
   // const categoryId = useSelector(state => state.filter.categoryId);
   // const sortType = useSelector(state => state.filter.sort.sortProperty);
   //*     можно записать через деструктуризацию
+  const {items, status} = useSelector((state) => state.pizza);
+
   const { categoryId, sort, currentPage } = useSelector(
     (state) => state.filter
   );
+
   const sortType = sort.sortProperty;
 
   const { searchValue } = useContext(SearchContext); // use hook useContext
-  const [items, setItems] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  // const [currentPage, setCurrentPage] = useState(1);
 
   const onClickCategory = (id) => {
     dispatch(setCategoryId(id));
@@ -43,8 +43,8 @@ const Home = () => {
     dispatch(setCurrentPage(number));
   };
 
-  const fetchPizzas = async () => {
-    setIsLoading(true);
+  const getPizzas = async () => {
+    // setIsLoading(true);
     const sortBy = sortType.replace("-", "");
     const order = sortType.includes("-") ? "asc" : "desc";
     const category = categoryId > 0 ? `category=${categoryId}` : "";
@@ -52,32 +52,17 @@ const Home = () => {
     // backend search
     const search = searchValue ? `&search=${searchValue}` : "";
 
-      // axios
-      //   .get(
-      //     `https://64b78c1321b9aa6eb0784a2e.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`
-      //   )
-      //   .then((res) => {
-      //     setItems(res.data);
-      //     console.log(777)
-      //     setIsLoading(false);
-      //   }).catch(err => {
-      //     setIsLoading(false);
-      //     console.log(err, "Axios error")
-      //   });
-
     //* переписали функцию на синхронную async/await with try/catch
-    try {
-      const res = await axios.get(
-      `https://64b78c1321b9aa6eb0784a2e.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`
+
+    dispatch(
+      fetchPizzas({
+        sortBy,
+        order,
+        category,
+        search,
+        currentPage,
+      })
     );
-    setItems(res.data);
-    console.log(777);
-    } catch (err) {
-      console.log("Axios error", err)
-      alert('Error to get pizzas')
-    } finally {
-    setIsLoading(false);
-    }
 
     window.scrollTo(0, 0);
   };
@@ -112,7 +97,7 @@ const Home = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     if (!isSearch.current) {
-      fetchPizzas();
+      getPizzas();
     }
     isSearch.current = false;
   }, [categoryId, sort.sortProperty, currentPage, searchValue]);
@@ -135,7 +120,17 @@ const Home = () => {
         <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
-      <div className="content__items">{isLoading ? skeleton : pizzas}</div>
+      {status === "error" ? (<div className="content__error-info">
+        <h2>
+          An error has occurred <span>😕</span>
+        </h2>
+        <p>
+          Unable to get pizzas, sorry!
+          Try again later...
+        </p></div>) : 
+      (<div className="content__items">{status==='loading' ? skeleton : pizzas}</div>)
+      
+      }
       <Pagination currentPage={currentPage} onChangePage={onChangePage} />
     </div>
   );
