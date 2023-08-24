@@ -29,9 +29,9 @@ const Home = () => {
   //*     можно записать через деструктуризацию
   const { items, status } = useSelector(selectPizzaData);
 
-  const { categoryId, sort, currentPage } = useSelector(selectFilter);
+  const { categoryId, sort, currentPage, searchValue } = useSelector(selectFilter);
 
-  const { searchValue } = useContext(SearchContext); // use hook useContext
+
 
   const sortType = sort.sortProperty;
   const onClickCategory = (id) => {
