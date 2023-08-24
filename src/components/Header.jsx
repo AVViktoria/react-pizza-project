@@ -24,8 +24,8 @@ export default function Header() {
         <Search />
 
         <div className="header__cart">
-          <a href="/cart" className="button button--cart">
-            <span>{totalPrice}₽</span>
+          <Link to="/cart" className="button button--cart">
+            <span>{totalPrice} ₽</span>
             <div className="button__delimiter"></div>
             <svg
               width="18"
@@ -57,7 +57,7 @@ export default function Header() {
               />
             </svg>
             <span>{totalCount}</span>
-          </a>
+          </Link>
         </div>
       </div>
     </div>
