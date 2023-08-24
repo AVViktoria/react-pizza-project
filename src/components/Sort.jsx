@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setSort } from "../redux/slices/filterSlice";
+import { selectSort, setSort } from "../redux/slices/filterSlice";
 
 export const list = [
     { name: "популярности (down)", sortProperty: "rating" },
@@ -15,18 +15,26 @@ export const list = [
   ];
 
 
-export default function Sort() {
+function Sort() {
   const dispatch = useDispatch();
-  const sort = useSelector(state => state.filter.sort);
+  const sort = useSelector(selectSort);
   const sortRef = useRef();
 
 
   const [open, setOpen] = useState(false);
 
+  // const onClickListItem = (obj) => {
+  //   dispatch(setSort(obj));
+  //   setOpen(false); // hide sort window
+  // };
+
   const onClickListItem = (obj) => {
     dispatch(setSort(obj));
-    setOpen(false); // hide sort window
-  };
+    setOpen(false);
+}
+
+
+
 const handleClickOutside =(event) => {
 ////////????????? doesn't work INCLUDES????
       // if (!event.path.includes(sortRef.current)) {
@@ -79,3 +87,4 @@ document.body.addEventListener('click', handleClickOutside)
     </div>
   );
 }
+export default Sort;

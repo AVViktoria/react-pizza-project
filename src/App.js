@@ -1,33 +1,34 @@
-import { Route, Routes } from "react-router-dom";
+import { Outlet, Route, Routes } from "react-router-dom";
 import React from "react";
 
 // components
-import Header from "./components/Header.jsx";
 import Home from "./pages/Home.jsx";
 import Cart from "./pages/Cart.jsx";
 import NotFound from "./pages/NotFound.jsx";
-
+import FullPizza from "./pages/FullPizza.jsx";
 //styles
 import "./scss/app.scss";
-import { useState } from "react";
+import MainLayout from "./layouts/MainLayout.jsx";
 
-export const SearchContext = React.createContext();
-
+// function Parent({children}) {
+//   return (
+//     <div>
+//       <h1>Label</h1>
+//       {children;}// we can use it if no many routers
+//       <Outlet />
+//     </div>
+//   );
+// }
 function App() {
-  const [searchValue, setSearchValue] = useState("");
   return (
-    <div className="wrapper">
-      <SearchContext.Provider value={{ searchValue, setSearchValue }}>
-        <Header />
-        <div className="content">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="*" element={<NotFound />} /> {/* route по умолчанию */}
-          </Routes>
-        </div>
-      </SearchContext.Provider>
-    </div>
+    <Routes>
+      <Route path="/" element={<MainLayout />}>
+        <Route path="" element={<Home />} />
+        <Route path="cart" element={<Cart />} />
+        <Route path="pizza/:id" element={<FullPizza />} />
+        <Route path="*" element={<NotFound />} /> {/* route по умолчанию */}
+      </Route>
+    </Routes>
   );
 }
 
