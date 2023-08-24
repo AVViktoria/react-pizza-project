@@ -1,5 +1,5 @@
-import { useContext, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectFilter,
@@ -7,7 +7,7 @@ import {
   setCurrentPage,
   setFilters,
 } from "../redux/slices/filterSlice";
-import { SearchContext } from "../App";
+// import { SearchContext } from "../App";
 import qs from "qs";
 
 // components
@@ -49,8 +49,6 @@ const Home = () => {
 
     // backend search
     const search = searchValue ? `&search=${searchValue}` : "";
-
-    //* переписали функцию на синхронную async/await with try/catch
 
     dispatch(
       fetchPizzas({
@@ -107,7 +105,7 @@ const Home = () => {
       }
       return false;
     })
-    .map((obj) => <PizzaBlock key={obj.id} {...obj} />);
+    .map((obj) => <Link key={obj.id} to= {`/pizza/${obj.id}`}><PizzaBlock  {...obj} /></Link>);
 
   const skeleton = [...new Array(6)].map((_, index) => <Loader key={index} />);
 
