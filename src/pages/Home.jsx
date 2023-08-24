@@ -2,6 +2,7 @@ import { useContext, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  selectFilter,
   setCategoryId,
   setCurrentPage,
   setFilters,
@@ -16,7 +17,7 @@ import PizzaBlock from "../components/PizzaBlock/PizzaBlock";
 import Sort from "../components/Sort";
 import Pagination from "../components/Pagination";
 import { list } from "../components/Sort";
-import { fetchPizzas } from "../redux/slices/pizzaSlice";
+import { fetchPizzas, selectPizzaData } from "../redux/slices/pizzaSlice";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -26,16 +27,13 @@ const Home = () => {
   // const categoryId = useSelector(state => state.filter.categoryId);
   // const sortType = useSelector(state => state.filter.sort.sortProperty);
   //*     можно записать через деструктуризацию
-  const {items, status} = useSelector((state) => state.pizza);
+  const { items, status } = useSelector(selectPizzaData);
 
-  const { categoryId, sort, currentPage } = useSelector(
-    (state) => state.filter
-  );
-
-  const sortType = sort.sortProperty;
+  const { categoryId, sort, currentPage } = useSelector(selectFilter);
 
   const { searchValue } = useContext(SearchContext); // use hook useContext
 
+  const sortType = sort.sortProperty;
   const onClickCategory = (id) => {
     dispatch(setCategoryId(id));
   };
@@ -120,17 +118,18 @@ const Home = () => {
         <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
-      {status === "error" ? (<div className="content__error-info">
-        <h2>
-          An error has occurred <span>😕</span>
-        </h2>
-        <p>
-          Unable to get pizzas, sorry!
-          Try again later...
-        </p></div>) : 
-      (<div className="content__items">{status==='loading' ? skeleton : pizzas}</div>)
-      
-      }
+      {status === "error" ? (
+        <div className="content__error-info">
+          <h2>
+            An error has occurred <span>😕</span>
+          </h2>
+          <p>Unable to get pizzas, sorry! Try again later...</p>
+        </div>
+      ) : (
+        <div className="content__items">
+          {status === "loading" ? skeleton : pizzas}
+        </div>
+      )}
       <Pagination currentPage={currentPage} onChangePage={onChangePage} />
     </div>
   );

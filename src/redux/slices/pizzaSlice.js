@@ -10,6 +10,12 @@ export const fetchPizzas = createAsyncThunk(
       `https://64b78c1321b9aa6eb0784a2e.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`
     );
     return data;
+    // console.log(thunkAPI);
+    // if (data.length === 0) {
+    //   return thunkAPI.rejectWithValue("No pizzas");
+    // }
+
+    // return thunkAPI.fulfillWithValue(data);
   }
 );
 
@@ -29,19 +35,21 @@ export const pizzaSlice = createSlice({
   extraReducers: {
     [fetchPizzas.pending]: (state) => {
       state.status = "loading";
-      state.items = [];
     },
     [fetchPizzas.fulfilled]: (state, action) => {
+      console.log(action, "fulfilled");
       state.items = action.payload;
       state.status = "success";
     },
-    [fetchPizzas.rejected]: (state) => {
+    [fetchPizzas.rejected]: (state, action) => {
+      console.log(action, "rejected");
       state.status = "error";
       state.items = [];
     },
   },
 });
 
+export const selectPizzaData = (state) => state.pizza;
 export const { setItems } = pizzaSlice.actions;
 
 export default pizzaSlice.reducer;
