@@ -20,6 +20,12 @@
     margin-bottom: 20px;
   }
 
+  &__text {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 1%;
+    margin-bottom: 20px;
+  }
   &__selector {
     display: flex;
     background-color: #f3f3f3;
@@ -64,5 +70,8 @@
     font-size: 22px;
     line-height: 27px;
     letter-spacing: 0.015em;
+  }
+  &__one--pizza {
+    margin-bottom: 35px;
   }
 }
