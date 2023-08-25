@@ -10,12 +10,6 @@ export const fetchPizzas = createAsyncThunk(
       `https://64b78c1321b9aa6eb0784a2e.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`
     );
     return data;
-    //* if ned to use thunkAPI
-    // console.log(thunkAPI);
-    // if (data.length === 0) {
-    //   return thunkAPI.rejectWithValue("No pizzas");
-    // }
-    // return thunkAPI.fulfillWithValue(data);
   }
 );
 

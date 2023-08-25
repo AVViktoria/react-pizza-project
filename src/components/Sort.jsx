@@ -23,17 +23,10 @@ function Sort() {
 
   const [open, setOpen] = useState(false);
 
-  // const onClickListItem = (obj) => {
-  //   dispatch(setSort(obj));
-  //   setOpen(false); // hide sort window
-  // };
-
   const onClickListItem = (obj) => {
     dispatch(setSort(obj));
     setOpen(false);
 }
-
-
 
 const handleClickOutside =(event) => {
 ////////????????? doesn't work INCLUDES????
