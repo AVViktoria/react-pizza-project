@@ -115,7 +115,7 @@ const Home = () => {
         <Categories value={categoryId} onChangeCategory={onClickCategory} />
         <Sort />
       </div>
-      <h2 className="content__title">Все пиццы</h2>
+      <h2 className="content__title">All Pizzas</h2>
       {status === "error" ? (
         <div className="content__error-info">
           <h2>

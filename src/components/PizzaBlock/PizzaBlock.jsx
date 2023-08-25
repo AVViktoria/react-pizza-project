@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addItem, selectCartItemById } from "../../redux/slices/cartSlice.js";
-const typeNames = ["тонкое", "традиционное"];
+const typeNames = ["Thin", "Traditional"];
 
 export default function PizzaBlock({
   id,
@@ -76,7 +76,7 @@ export default function PizzaBlock({
                 fill="white"
               />
             </svg>
-            <span>Добавить</span>
+            <span>Add pizza</span>
             {addedCount > 0 && <i>{addedCount}</i>}
           </button>
         </div>
