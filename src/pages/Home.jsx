@@ -105,7 +105,8 @@ const Home = () => {
       }
       return false;
     })
-    .map((obj) => <Link key={obj.id} to= {`/pizza/${obj.id}`}><PizzaBlock  {...obj} /></Link>);
+    //* <Link key={obj.id} to= {`/pizza/${obj.id}`}><PizzaBlock  {...obj} /></Link> //link for render one pizza
+    .map((obj) => <div><PizzaBlock key={obj.id} {...obj} /></div>);
 
   const skeleton = [...new Array(6)].map((_, index) => <Loader key={index} />);
 
