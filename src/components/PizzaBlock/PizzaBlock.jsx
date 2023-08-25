@@ -53,13 +53,13 @@ export default function PizzaBlock({
                 onClick={() => setActiveSize(i)}
                 className={activeSize === i ? "active" : ""}
               >
-                {size} см.
+                {size} in.
               </li>
             ))}
           </ul>
         </div>
         <div className="pizza-block__bottom">
-          <div className="pizza-block__price">от {price} ₽</div>
+          <div className="pizza-block__price">from {price} $</div>
           <button
             onClick={onClickAdd}
             className="button button--outline button--add"
