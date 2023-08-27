@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectFilter,
@@ -19,30 +19,24 @@ import Pagination from "../components/Pagination";
 import { list } from "../components/Sort";
 import { fetchPizzas, selectPizzaData } from "../redux/slices/pizzaSlice";
 
-const Home = () => {
+const Home:React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isSearch = useRef(false);
   const isMounted = useRef(false); //первый рендер
-  // const categoryId = useSelector(state => state.filter.categoryId);
-  // const sortType = useSelector(state => state.filter.sort.sortProperty);
   //*     можно записать через деструктуризацию
   const { items, status } = useSelector(selectPizzaData);
-
-  const { categoryId, sort, currentPage, searchValue } = useSelector(selectFilter);
-
-
-
+  const { categoryId, sort, currentPage, searchValue } =
+    useSelector(selectFilter);
   const sortType = sort.sortProperty;
-  const onClickCategory = (id) => {
-    dispatch(setCategoryId(id));
+  const onClickCategory = (idx:number) => {
+    dispatch(setCategoryId(idx));
   };
-  const onChangePage = (number) => {
-    dispatch(setCurrentPage(number));
+  const onChangePage = (page:number) => {
+    dispatch(setCurrentPage(page));
   };
 
   const getPizzas = async () => {
-    // setIsLoading(true);
     const sortBy = sortType.replace("-", "");
     const order = sortType.includes("-") ? "asc" : "desc";
     const category = categoryId > 0 ? `category=${categoryId}` : "";
@@ -51,6 +45,7 @@ const Home = () => {
     const search = searchValue ? `&search=${searchValue}` : "";
 
     dispatch(
+      //@ts-ignore
       fetchPizzas({
         sortBy,
         order,
@@ -99,21 +94,24 @@ const Home = () => {
   }, [categoryId, sort.sortProperty, currentPage, searchValue]);
 
   const pizzas = items
-    .filter((obj) => {
+    .filter((obj:any) => {
       if (obj.title.toLowerCase().includes(searchValue.toLowerCase())) {
         return true;
       }
       return false;
-    })
-    //* <Link key={obj.id} to= {`/pizza/${obj.id}`}><PizzaBlock  {...obj} /></Link> //link for render one pizza
-    .map((obj) => <div><PizzaBlock key={obj.id} {...obj} /></div>);
+    }).map((obj:any) => (
+      //* <Link key={obj.id} to= {`/pizza/${obj.id}`}><PizzaBlock  {...obj} /></Link> //link for render one pizza 
+       <div key={obj.id}>
+      <PizzaBlock {...obj} />
+    </div>
+    ));
 
   const skeleton = [...new Array(6)].map((_, index) => <Loader key={index} />);
 
   return (
     <div className="container">
       <div className="content__top">
-        <Categories value={categoryId} onChangeCategory={onClickCategory} />
+        <Categories  value={categoryId} onChangeCategory={onClickCategory} />
         <Sort />
       </div>
       <h2 className="content__title">All Pizzas</h2>

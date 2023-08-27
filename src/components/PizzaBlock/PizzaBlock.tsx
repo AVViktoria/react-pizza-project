@@ -4,20 +4,31 @@ import { addItem, selectCartItemById } from "../../redux/slices/cartSlice.js";
 import { Link } from "react-router-dom";
 const typeNames = ["Thin", "Traditional"];
 
-export default function PizzaBlock({
+type PizzaBlockPropsType = {
+  id: string;
+  title: string;
+  price: number;
+  imageUrl: string;
+  sizes: number[];
+  types: number[];
+}
+
+
+const PizzaBlock:React.FC<PizzaBlockPropsType>=({
   id,
   title,
   price,
   imageUrl,
   sizes,
   types,
-}) {
+}) =>{
   const dispatch = useDispatch();
   const cartItem = useSelector(selectCartItemById(id));
   const [activeType, setActiveType] = useState(0);
   const [activeSize, setActiveSize] = useState(0);
   const addedCount = cartItem ? cartItem.count : 0;
 
+  
   const onClickAdd = () => {
     const item = {
       id,
@@ -29,6 +40,7 @@ export default function PizzaBlock({
     };
     dispatch(addItem(item));
   };
+
   return (
     <div className="pizza-block-wrapper">
       <div className="pizza-block">
@@ -87,3 +99,4 @@ export default function PizzaBlock({
     </div>
   );
 }
+export default PizzaBlock;

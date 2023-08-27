@@ -1,15 +1,13 @@
 
+import React from "react";
+type CategoriesPropsType = {
+  value: number;
+  onChangeCategory: any;
 
-export default function Categories({value, onChangeCategory, onChangeSort}) {
+}
 
-  const categoriesName = [
-    "All",
-    "Vegetarian",
-     "Meat",
-     "Grill",
-    "Spicy",
-    "Mix",
-  ];
+const Categories:React.FC<CategoriesPropsType> = ({ value, onChangeCategory })=> {
+  const categoriesName = ["All", "Vegetarian", "Meat", "Grill", "Spicy", "Mix"];
 
   return (
     <div className="categories">
@@ -27,4 +25,4 @@ export default function Categories({value, onChangeCategory, onChangeSort}) {
     </div>
   );
 }
-
+export default Categories;

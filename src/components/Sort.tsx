@@ -2,50 +2,50 @@ import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectSort, setSort } from "../redux/slices/filterSlice";
 
-export const list = [
-    { name: "rating (down)", sortProperty: "rating" },
-    { name: "rating (up)", sortProperty: "-rating" },
+type ListType = {
+  name: string; sortProperty: string;
+}
+export const list: ListType[] = [
+  { name: "rating (down)", sortProperty: "rating" },
+  { name: "rating (up)", sortProperty: "-rating" },
 
-    { name: "price (down)", sortProperty: "price" },
-    { name: "price (up)", sortProperty: "-price" },
+  { name: "price (down)", sortProperty: "price" },
+  { name: "price (up)", sortProperty: "-price" },
 
-    { name: "alphabet (down)", sortProperty: "title" },
-    { name: "alphabet (up)", sortProperty: "-title" },
-
-  ];
-
+  { name: "alphabet (down)", sortProperty: "title" },
+  { name: "alphabet (up)", sortProperty: "-title" },
+];
 
 function Sort() {
   const dispatch = useDispatch();
   const sort = useSelector(selectSort);
-  const sortRef = useRef();
-
+  const sortRef = useRef<HTMLDivElement>(null);
 
   const [open, setOpen] = useState(false);
 
-  const onClickListItem = (obj) => {
+  const onClickListItem = (obj:ListType) => {
     dispatch(setSort(obj));
     setOpen(false);
-}
+  };
 
-const handleClickOutside =(event) => {
-////////????????? doesn't work INCLUDES????
-      // if (!event.path.includes(sortRef.current)) {
-      if (!sortRef.current) {
-        
-         setOpen(false);
-      }
+
+  
+  const handleClickOutside = (event:any) => {
+    ////////????????? doesn't work INCLUDES????
+    // if (!event.path.includes(sortRef.current)) {
+    if (!sortRef.current) {
+      setOpen(false);
     }
+  };
   //componentDidMount
   useEffect(() => {
-document.body.addEventListener('click', handleClickOutside)
+    document.body.addEventListener("click", handleClickOutside);
     //componentWillUnmount effect - размонтирование
-    return () => document.body.removeEventListener('click', handleClickOutside)
-  }, [])
-  
+    return () => document.body.removeEventListener("click", handleClickOutside);
+  }, []);
 
   return (
-    <div ref={ sortRef} className="sort">
+    <div ref={sortRef} className="sort">
       <div className="sort__label">
         <svg
           width="10"
@@ -69,7 +69,9 @@ document.body.addEventListener('click', handleClickOutside)
               <li
                 key={i}
                 onClick={() => onClickListItem(obj)}
-                className={sort.sortProperty === obj.sortProperty ? "active" : ""}
+                className={
+                  sort.sortProperty === obj.sortProperty ? "active" : ""
+                }
               >
                 {obj.name}
               </li>
