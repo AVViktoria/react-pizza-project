@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
+import { Link } from "react-router-dom";
 
 function FullPizza() {
   const [pizza, setPizza] = useState();
@@ -26,12 +27,19 @@ function FullPizza() {
     return "Loading...";
   }
   return (
-    <div className="container">
-      <img className="pizza-block__image" src={pizza.imageUrl} alt="Pizza" />
-      <h2>{pizza.title}</h2>
-      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. </p>
-      <h4>{pizza.price} $</h4>
-    </div>
+
+      <div  className="cart cart--empty">
+<img className="pizza-block__image" src={pizza.imageUrl} alt="Pizza" />
+      <h2 className="pizza-block__title">{pizza.title}</h2>
+        <p className="pizza-block__text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis modi, minus quas sequi tenetur excepturi deleniti quis atque labore nulla?
+      </p>
+        <div className="pizza-block__price pizza-block__one--pizza">{pizza.price} $</div>
+        <Link to="/" className="button button--black">
+          <span>Go back</span>
+        </Link>
+      </div>
+      
+  
   );
 }
 export default FullPizza;

@@ -4,12 +4,12 @@ export default function Categories({value, onChangeCategory, onChangeSort}) {
   // const [activeIndex, setActiveIndex] = useState(0);
 // console.log(value);
   const categoriesName = [
-    "Все",
-    "Вегетарианская",
-    "Мясные",
-    "Гриль",
-    "Острые",
-    "Закрытые",
+    "All",
+    "Vegetarian",
+     "Meat",
+     "Grill",
+    "Spicy",
+    "Mix",
   ];
   // const onClickCategory = (index) => {
   //   setActiveIndex(index);

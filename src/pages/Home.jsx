@@ -105,7 +105,8 @@ const Home = () => {
       }
       return false;
     })
-    .map((obj) => <Link key={obj.id} to= {`/pizza/${obj.id}`}><PizzaBlock  {...obj} /></Link>);
+    //* <Link key={obj.id} to= {`/pizza/${obj.id}`}><PizzaBlock  {...obj} /></Link> //link for render one pizza
+    .map((obj) => <div><PizzaBlock key={obj.id} {...obj} /></div>);
 
   const skeleton = [...new Array(6)].map((_, index) => <Loader key={index} />);
 
@@ -115,7 +116,7 @@ const Home = () => {
         <Categories value={categoryId} onChangeCategory={onClickCategory} />
         <Sort />
       </div>
-      <h2 className="content__title">Все пиццы</h2>
+      <h2 className="content__title">All Pizzas</h2>
       {status === "error" ? (
         <div className="content__error-info">
           <h2>

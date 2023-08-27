@@ -71,7 +71,7 @@ const CartItem = ({ id, title, size, price, count, type, imageUrl }) => {
         </div>
       </div>
       <div className="cart__item-price">
-        <b>{price * count} ₽</b>
+        <b>{price * count} $</b>
       </div>
       <div className="cart__item-remove">
         <div onClick={onClickRemove } className="button button--outline button--circle">

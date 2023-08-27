@@ -3,14 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectSort, setSort } from "../redux/slices/filterSlice";
 
 export const list = [
-    { name: "популярности (down)", sortProperty: "rating" },
-    { name: "популярности (up)", sortProperty: "-rating" },
+    { name: "rating (down)", sortProperty: "rating" },
+    { name: "rating (up)", sortProperty: "-rating" },
 
-    { name: "цене (down)", sortProperty: "price" },
-    { name: "цене (up)", sortProperty: "-price" },
+    { name: "price (down)", sortProperty: "price" },
+    { name: "price (up)", sortProperty: "-price" },
 
-    { name: "алфавиту (down)", sortProperty: "title" },
-    { name: "алфавиту (up)", sortProperty: "-title" },
+    { name: "alphabet (down)", sortProperty: "title" },
+    { name: "alphabet (up)", sortProperty: "-title" },
 
   ];
 
@@ -66,7 +66,7 @@ document.body.addEventListener('click', handleClickOutside)
             fill="#2C2C2C"
           />
         </svg>
-        <b>Сортировка по:</b>
+        <b>Sort by:</b>
         <span onClick={() => setOpen(!open)}>{sort.name}</span>
       </div>
       {open && (

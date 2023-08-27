@@ -53,7 +53,7 @@ const Cart = () => {
                 strokeLinejoin="round"
               ></path>
             </svg>
-            Корзина
+            Cart
           </h2>
           <div onClick={onClickClear} className="cart__clear">
             <svg
@@ -93,7 +93,7 @@ const Cart = () => {
               ></path>
             </svg>
 
-            <span>Очистить корзину</span>
+            <span>Clean the cart</span>
           </div>
         </div>
         <div className="content__items">
@@ -106,11 +106,11 @@ const Cart = () => {
           <div className="cart__bottom-details">
             <span>
               {" "}
-              Всего пицц: <b>{totalCount} шт.</b>{" "}
+              Total pizzas: <b>{totalCount} pc.</b>{" "}
             </span>
             <span>
               {" "}
-              Сумма заказа: <b>{totalPrice} ₽</b>{" "}
+              Order price: <b>{totalPrice} $</b>{" "}
             </span>
           </div>
           <div className="cart__bottom-buttons">
@@ -134,10 +134,10 @@ const Cart = () => {
                 ></path>
               </svg>
 
-              <span>Вернуться назад</span>
+              <span>Go back</span>
             </Link>
             <div className="button pay-btn">
-              <span>Оплатить сейчас</span>
+              <span>Pay now</span>
             </div>
           </div>
         </div>
