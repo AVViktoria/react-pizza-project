@@ -23,22 +23,27 @@ function Sort() {
 
   const [open, setOpen] = useState(false);
 
-  const onClickListItem = (obj:ListType) => {
+  const onClickListItem = (obj: ListType) => {
     dispatch(setSort(obj));
     setOpen(false);
   };
 
 
-  
-  const handleClickOutside = (event:any) => {
-    ////////????????? doesn't work INCLUDES????
-    // if (!event.path.includes(sortRef.current)) {
-    if (!sortRef.current) {
-      setOpen(false);
-    }
-  };
+  // const handleClickOutside = (event:any) => {
+  //   ////////????????? doesn't work INCLUDES????
+  //   // if (!event.path.includes(sortRef.current)) {
+  //   if (!sortRef.current) {
+  //     setOpen(false);
+  //   }
+  // };
+
   //componentDidMount
   useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (!sortRef.current) {
+        setOpen(false);
+      }
+    }
     document.body.addEventListener("click", handleClickOutside);
     //componentWillUnmount effect - размонтирование
     return () => document.body.removeEventListener("click", handleClickOutside);

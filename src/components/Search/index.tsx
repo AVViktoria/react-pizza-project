@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import debounce from "lodash"
 
@@ -6,9 +6,9 @@ import { setSearchValue } from "../../redux/slices/filterSlice";
 
 import styles from "./Search.module.scss";
 
-const Search:React.FC = () => {
+const Search: React.FC = () => {
   const dispatch = useDispatch();
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
 
   const onClickClear = () => {
@@ -25,13 +25,13 @@ const Search:React.FC = () => {
   // сохраняем ссылку на функцию с помощью useCallback и делаем ее отложенной
   //вызываем ее каждый раз, когда меняется инпут в onChangeInput
   const updateSearchValue = useCallback(
-    debounce((str:string) => {
+    debounce((str: string) => {
       dispatch(setSearchValue(str));
     }, 150),
     []
   );
 
-  const onChangeInput = (event:any) => {
+  const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
     updateSearchValue(event.target.value);
   };

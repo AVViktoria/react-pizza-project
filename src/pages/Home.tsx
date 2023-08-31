@@ -32,7 +32,7 @@ const Home:React.FC = () => {
   const onClickCategory = (idx:number) => {
     dispatch(setCategoryId(idx));
   };
-  const onChangePage = (page:number) => {
+  const onChangePage = (page: number) => {
     dispatch(setCurrentPage(page));
   };
 

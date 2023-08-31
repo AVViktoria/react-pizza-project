@@ -2,12 +2,11 @@
 import React from "react";
 type CategoriesPropsType = {
   value: number;
-  onChangeCategory: any;
-
+  onChangeCategory: (i: number)=> void;
 }
+  const categoriesName = ["All", "Vegetarian", "Meat", "Grill", "Spicy", "Mix"];
 
 const Categories:React.FC<CategoriesPropsType> = ({ value, onChangeCategory })=> {
-  const categoriesName = ["All", "Vegetarian", "Meat", "Grill", "Spicy", "Mix"];
 
   return (
     <div className="categories">
