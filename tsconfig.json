@@ -23,6 +23,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/@types", "src/components/PizzaBlock/Loader.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/@types", "src/components/PizzaBlock/Loader.tsx", "src/components/Search/index.tsx"],
   "exclude": ["node_modules"]
 }

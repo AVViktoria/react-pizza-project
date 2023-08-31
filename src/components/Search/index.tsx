@@ -1,6 +1,6 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, {  useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import debounce from "lodash"
+// import debounce from "lodash"
 
 import { setSearchValue } from "../../redux/slices/filterSlice";
 
@@ -24,16 +24,14 @@ const Search: React.FC = () => {
 
   // сохраняем ссылку на функцию с помощью useCallback и делаем ее отложенной
   //вызываем ее каждый раз, когда меняется инпут в onChangeInput
-  const updateSearchValue = useCallback(
-    debounce((str: string) => {
-      dispatch(setSearchValue(str));
-    }, 150),
-    []
-  );
+  // const updateSearchValue = useCallback(
+  //   debounce((str: any) => {
+  //     dispatch(setSearchValue(str));
+  //   }, 150),[]);
 
   const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
-    updateSearchValue(event.target.value);
+    // updateSearchValue(event.target.value);
   };
 
   return (
