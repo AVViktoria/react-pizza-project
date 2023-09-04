@@ -4,7 +4,7 @@
 
 The "Pizza Delight" project is an interactive web application developed using the React library for convenient online pizza ordering. The application provides the following technical characteristics:
 
-![Project Image](https://github.com/AVViktoria/react-pizza-project/blob/part8-TypeScript/public/project_img.png)
+![Project Image](https://github.com/AVViktoria/react-pizza-project/blob/part8-TypeScript/public/project-img.jpg)
 
 **Framework:** The React library is used for developing the user interface.
 
