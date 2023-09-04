@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import {  useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -7,7 +7,6 @@ import {
   setCurrentPage,
   setFilters,
 } from "../redux/slices/filterSlice";
-// import { SearchContext } from "../App";
 import qs from "qs";
 
 // components
@@ -24,14 +23,18 @@ const Home:React.FC = () => {
   const dispatch = useDispatch();
   const isSearch = useRef(false);
   const isMounted = useRef(false); //первый рендер
+  
   //*     можно записать через деструктуризацию
   const { items, status } = useSelector(selectPizzaData);
   const { categoryId, sort, currentPage, searchValue } =
     useSelector(selectFilter);
   const sortType = sort.sortProperty;
-  const onClickCategory = (idx:number) => {
+  
+  // оборачиваем в коллбек что бы не делалась перерисовка каждый раз
+  const onClickCategory = useCallback((idx: number) => {
     dispatch(setCategoryId(idx));
-  };
+  }, []);
+
   const onChangePage = (page: number) => {
     dispatch(setCurrentPage(page));
   };
@@ -63,14 +66,14 @@ const Home:React.FC = () => {
   useEffect(() => {
     if (isMounted.current) {
       const queryString = qs.stringify({
-        sortProperty: sort.sortProperty,
+        sortProperty: sortType,
         categoryId,
         currentPage,
       });
       navigate(`?${queryString}`);
     }
     isMounted.current = true;
-  }, [categoryId, sort.sortProperty, searchValue, currentPage]);
+  }, [categoryId, sortType, searchValue, currentPage]);
 
   // при первом рендере парсим параметры, проверяем, есть ли в URL такие параметры
   // если был первый рендер, то проверяем URL-параметры и сохраняем в Redux
@@ -91,7 +94,7 @@ const Home:React.FC = () => {
       getPizzas();
     }
     isSearch.current = false;
-  }, [categoryId, sort.sortProperty, currentPage, searchValue]);
+  }, [categoryId, sortType, currentPage, searchValue]);
 
   const pizzas = items
     .filter((obj:any) => {
@@ -112,7 +115,7 @@ const Home:React.FC = () => {
     <div className="container">
       <div className="content__top">
         <Categories  value={categoryId} onChangeCategory={onClickCategory} />
-        <Sort />
+        <Sort value={ sort} />
       </div>
       <h2 className="content__title">All Pizzas</h2>
       {status === "error" ? (

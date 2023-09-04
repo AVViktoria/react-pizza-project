@@ -1,13 +1,15 @@
+import React, { memo } from "react";
 
-import React from "react";
 type CategoriesPropsType = {
   value: number;
   onChangeCategory: (i: number)=> void;
 }
   const categoriesName = ["All", "Vegetarian", "Meat", "Grill", "Spicy", "Mix"];
 
-const Categories:React.FC<CategoriesPropsType> = ({ value, onChangeCategory })=> {
+  // memo  - not redraws categories (не перерисовывает категории)
+const Categories:React.FC<CategoriesPropsType> = memo(({ value, onChangeCategory })=> {
 
+  
   return (
     <div className="categories">
       <ul>
@@ -23,5 +25,5 @@ const Categories:React.FC<CategoriesPropsType> = ({ value, onChangeCategory })=>
       </ul>
     </div>
   );
-}
+})
 export default Categories;

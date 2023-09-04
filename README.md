@@ -1,8 +1,8 @@
-# Project "Pizza Delight" 🍕
+# Project "Delicious Pizza" 🍕
 
 ## About the Project
 
-The "Pizza Delight" project is an interactive web application developed using the React library for convenient online pizza ordering. The application provides the following technical characteristics:
+The "Delicious Pizza" project is an interactive web application developed using the React library for convenient online pizza ordering. The application provides the following technical characteristics:
 
 ![Project Image](https://github.com/AVViktoria/react-pizza-project/blob/part8-TypeScript/public/project-img.jpg)
 
@@ -27,4 +27,4 @@ The "Pizza Delight" project is an interactive web application developed using th
 3. Install dependencies: npm install
 4. Start the application: npm start
 
-### Thank you for your interest in the "Pizza Delight" project!
+### Thank you for your interest in the "Delicious Pizza" project!

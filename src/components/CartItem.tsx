@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { addItem, minusItem, removeItem } from "../redux/slices/cartSlice";
 
-type CartItemPropsType = {
+export type CartItemPropsType = {
   id: string;
   title: string;
   size: number;
@@ -11,6 +11,7 @@ type CartItemPropsType = {
   type: string;
   imageUrl: string;
 };
+
 const CartItem: React.FC<CartItemPropsType> = ({
   id,
   title,

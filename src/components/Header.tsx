@@ -4,12 +4,24 @@ import { useSelector } from "react-redux";
 import Search from "./Search";
 import LogoSvg from "../assets/img/pizza-logo.svg";
 import { selectCart } from "../redux/slices/cartSlice";
+import { useEffect, useRef } from "react";
 
 const Header: React.FC= () =>{
   const { items, totalPrice } = useSelector(selectCart);
   const location = useLocation();
+  const isMounted = useRef(false)
   const totalCount = items.reduce((sum:number, item: any) => sum + item.count, 0);
-
+  
+  useEffect(() => {
+    // check for first render (что бы при первом рендере не сохранялся пустой масив)
+    if (isMounted.current) {
+      const json = JSON.stringify(items);
+    localStorage.setItem('cart', json) 
+    }
+    isMounted.current = true;
+   
+  }, [items]);
+  
   return (
     <div className="header">
       <div className="container">
@@ -22,7 +34,7 @@ const Header: React.FC= () =>{
             </div>
           </div>
         </Link>
-        <Search />
+        {location.pathname !== "/cart" && <Search />}
         <div className="header__cart">
           {location.pathname !== "/cart" && (
             <Link to="/cart" className="button button--cart">
