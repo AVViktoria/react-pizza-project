@@ -1,3 +1,4 @@
+import { CartItemPropsType } from "../redux/slices/cart/cartTypes";
 import { calcTotalPrice } from "./calcTotalPrice";
 
 export const getCartFromLS = () => {
@@ -5,10 +6,8 @@ export const getCartFromLS = () => {
   const items = data ? JSON.parse(data) : [];
   const totalPrice = calcTotalPrice(items);
 
-  if (items.length) {
-    return {
-      items,
-      totalPrice,
-    };
-  }
+  return {
+    items: items as CartItemPropsType[],
+    totalPrice,
+  };
 };
