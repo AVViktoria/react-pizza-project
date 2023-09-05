@@ -1,23 +1,26 @@
 import {  memo, useEffect, useRef, useState } from "react";
 import { useDispatch} from "react-redux";
-import {  setSort } from "../redux/slices/filterSlice";
+import {  setSort } from "../redux/filter/filterSlice";
+import { SortPropertyEnum } from "../redux/filter/filterTypes";
 
 type ListType = {
-  name: string; sortProperty: string;
+  name: string; sortProperty: SortPropertyEnum;
 }
-
+// type PopupClick = MouseEvent & {
+//   path: Node[];
+// };
 type SortPropsType = {
-  value:ListType;
+  value: ListType;
 }
 export const list: ListType[] = [
-  { name: "rating (down)", sortProperty: "rating" },
-  { name: "rating (up)", sortProperty: "-rating" },
+  { name: "rating (down)", sortProperty: SortPropertyEnum.RATING_DESC  },
+  { name: "rating (up)", sortProperty: SortPropertyEnum.RATING_ASC  },
 
-  { name: "price (down)", sortProperty: "price" },
-  { name: "price (up)", sortProperty: "-price" },
+  { name: "price (down)", sortProperty: SortPropertyEnum.PRICE_DESC },
+  { name: "price (up)", sortProperty: SortPropertyEnum.PRICE_ASC },
 
-  { name: "alphabet (down)", sortProperty: "title" },
-  { name: "alphabet (up)", sortProperty: "-title" },
+  { name: "alphabet (down)", sortProperty: SortPropertyEnum.TITLE_DESC },
+  { name: "alphabet (up)", sortProperty: SortPropertyEnum.TITLE_ASC },
 ];
 
  // memo  - not redraws categories (не перерисовывает категории)

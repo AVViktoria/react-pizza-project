@@ -1,4 +1,4 @@
-import { CartItemPropsType } from "../redux/slices/cart/cartTypes";
+import { CartItemPropsType } from "../redux/cart/cartTypes";
 import { calcTotalPrice } from "./calcTotalPrice";
 
 export const getCartFromLS = () => {

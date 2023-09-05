@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addItem} from "../../redux/slices/cart/cartSlice";
+import { addItem} from "../../redux/cart/cartSlice";
 import { Link } from "react-router-dom";
-import { CartItemPropsType } from "../../redux/slices/cart/cartTypes";
-import { selectCartItemById } from "../../redux/slices/cart/cartSelectors";
+import { CartItemPropsType } from "../../redux/cart/cartTypes";
+import { selectCartItemById } from "../../redux/cart/cartSelectors";
 const typeNames = ["Thin", "Traditional"];
 
 type PizzaBlockPropsType = {
@@ -13,6 +13,7 @@ type PizzaBlockPropsType = {
   imageUrl: string;
   sizes: number[];
   types: number[];
+  rating: number;
 }
 
 
