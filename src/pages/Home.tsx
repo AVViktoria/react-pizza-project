@@ -1,8 +1,7 @@
-import { useCallback, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useCallback, useEffect } from "react";
+// import { useNavigate } from "react-router-dom";
 import {  useSelector } from "react-redux";
 // import qs from "qs";
-
 import { selectFilter } from "../redux/filter/filterSelectors";
 import { fetchPizzas } from "../redux/pizza/asyncActions";
 import { selectPizzaData } from "../redux/pizza/pizzaSelectors";
@@ -39,7 +38,7 @@ const Home: React.FC = () => {
   // оборачиваем в коллбек что бы не делалась перерисовка каждый раз
   const onClickCategory = useCallback((idx: number) => {
     dispatch(setCategoryId(idx));
-  }, []);
+  }, [dispatch]);
 
   const onChangePage = (page: number) => {
     dispatch(setCurrentPage(page));
@@ -83,20 +82,20 @@ const Home: React.FC = () => {
   //   if (!window.location.search) {
   //     dispatch(fetchPizzas({} as SearchPizzaParams))
   //   }
-    // const params = qs.parse(window.location.search.substring(1)) as unknown as SearchPizzaParams;
-    // const sort = list.find((obj) => obj.sortProperty === params.sortBy);
+  //   const params = qs.parse(window.location.search.substring(1)) as unknown as SearchPizzaParams;
+  //   const sort = list.find((obj) => obj.sortProperty === params.sortBy);
    
-    // dispatch(
-    //   setFilters({
-    //     searchValue: params.search,
-    //     categoryId: Number(params.category),
-    //     currentPage: Number(params.currentPage),
-    //     sort: sort || list[0],
-    //   }),
-    // );
+  //   dispatch(
+  //     setFilters({
+  //       searchValue: params.search,
+  //       categoryId: Number(params.category),
+  //       currentPage: Number(params.currentPage),
+  //       sort: sort || list[0],
+  //     }),
+  //   );
 
-    // getPizzas();
-    // isMounted.current = true;
+  //   // getPizzas();
+  //   // isMounted.current = true;
   // }, [categoryId, sortType, searchValue, currentPage]);
 
   useEffect(() => {
@@ -108,20 +107,20 @@ const Home: React.FC = () => {
 // if (window.location.search) {
 //       const params = qs.parse(window.location.search.substring(1))as unknown as SearchPizzaParams;
 //       const sort = list.find((obj) => obj.sortProperty === params.sortBy);
-//   if (sort) {
-//     params.sortBy = sort;
-//   }
-
-//   dispatch(setFilters({
-//         searchValue: params.search,
-//         categoryId: Number(params.category),
-//         currentPage: Number(params.currentPage),
-//         sort: sort || list[0],
-//   }))
-     
-//     }
-//     isMounted.current = true;
-//   }, []);
+//   const sortBy = sort ? sort.sortProperty : list[0].sortProperty;
+// params.sortBy = sortBy;
+  // if (sort) {
+  //   params.sortBy = sort;
+  // }
+  // dispatch(setFilters({
+  //       searchValue: params.search,
+  //       categoryId: Number(params.category),
+  //       currentPage: Number(params.currentPage),
+  //       sort: sort || list[0],
+  // }))
+  //   }
+  //   isMounted.current = true;
+  // }, []);
 
   // если был первый рендер, то запрашиваем пиццы
   // useEffect(() => {
